@@ -1,6 +1,12 @@
 ---
-import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
 import "../styles/global.css";
+
+type Props = {
+    pageTitle: string;
+};
+
 const { pageTitle } = Astro.props;
 ---
 
@@ -11,10 +17,30 @@ const { pageTitle } = Astro.props;
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
         <title>Ronkies - {pageTitle}</title>
+
+        <style>
+            html {
+                height: 100%;
+            }
+            body {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+            }
+
+            main {
+                margin-inline: auto;
+                flex: 1;
+                width: 70vw;
+            }
+        </style>
     </head>
     <body>
-        <Navigation />
-        <h1>{pageTitle}</h1>
-        <slot />
+        <Header />
+        <main>
+            <h1>{pageTitle}</h1>
+            <slot />
+        </main>
+        <Footer />
     </body>
 </html>
