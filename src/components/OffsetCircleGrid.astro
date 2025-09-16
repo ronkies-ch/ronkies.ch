@@ -1,0 +1,84 @@
+---
+
+---
+
+<style define:vars={{ m: "1rem" }}>
+    section {
+        --amount: 5;
+
+        display: flex;
+        gap: 0 var(--m);
+        flex-wrap: wrap;
+        div {
+            --w: calc(
+                100% / var(--amount) -
+                    (var(--m) * (var(--amount) - 1) / (var(--amount)))
+            );
+            width: var(--w);
+            display: inline-block;
+            background-color: whitesmoke;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+    }
+
+    @media (width > 1200px) {
+        section {
+            --amount: 6;
+
+            div {
+                &:nth-child(11n + 7) {
+                    margin-left: calc(var(--w) / 2 + var(--m) / 2);
+                }
+            }
+        }
+    }
+
+    @media (800px <= width <= 1200px) {
+        section {
+            --amount: 5;
+
+            div {
+                &:nth-child(9n + 6) {
+                    margin-left: calc(var(--w) / 2 + var(--m) / 2);
+                }
+            }
+        }
+    }
+
+    @media (500px <= width <= 800px) {
+        section {
+            --amount: 4;
+
+            div {
+                &:nth-child(7n + 5) {
+                    margin-left: calc(var(--w) / 2 + var(--m) / 2);
+                }
+            }
+        }
+    }
+
+    @media (400px <= width < 500px) {
+        section {
+            --amount: 3;
+
+            div {
+                &:nth-child(5n + 4) {
+                    margin-left: calc(var(--w) / 2 + var(--m) / 2);
+                }
+            }
+        }
+    }
+
+    @media (width < 400px) {
+        section {
+            --amount: 2;
+            gap: var(--m);
+        }
+    }
+</style>
+
+<section>
+    <slot />
+</section>

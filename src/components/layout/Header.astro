@@ -1,0 +1,25 @@
+---
+import Navigation from "./Navigation.astro";
+---
+
+<style>
+    header {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+        align-items: center;
+        padding: 1rem;
+        background-color: #231f20;
+
+        img {
+            height: 3rem;
+            width: auto;
+        }
+    }
+</style>
+
+<header>
+    <img src="/ronkies-logo.png" alt="Ronkies Logo" />
+    <Navigation />
+</header>

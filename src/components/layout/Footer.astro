@@ -7,12 +7,17 @@
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         padding: 1rem;
+        background-color: #231f20;
     }
 
     li {
         list-style: none;
         display: flex;
         gap: 1rem;
+
+        a {
+            color: white;
+        }
     }
 </style>
 
@@ -20,22 +25,22 @@
     <ul>
         <li>
             <img src="" alt="Instagram icon" />
-            <p>Instagram</p>
+            <a href="#">@Ronkies</a>
         </li>
         <li>
             <img src="" alt="Facebook icon " />
-            <p>Facebook</p>
+            <a href="#">@Ronkies</a>
         </li>
     </ul>
 
     <ul>
         <li>
             <img src="" alt="Phone icon" />
-            <p><a href="tel:+">+41...</a></p>
+            <a href="tel:+">+41...</a>
         </li>
         <li>
             <img src="" alt="Email icon" />
-            <p><a href="mailto:blabla@ronkies.ch">blabla@ronkies.ch</a></p>
+            <a href="mailto:blabla@ronkies.ch">blabla@ronkies.ch</a>
         </li>
     </ul>
 </footer>
