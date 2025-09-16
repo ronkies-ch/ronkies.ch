@@ -1,5 +1,10 @@
 ---
-
+import {
+    IconBrandFacebook,
+    IconBrandInstagram,
+    IconMail,
+    IconPhone,
+} from "@tabler/icons-react";
 ---
 
 <style>
@@ -13,7 +18,9 @@
     li {
         list-style: none;
         display: flex;
+        align-items: center;
         gap: 1rem;
+        color: white;
 
         a {
             color: white;
@@ -24,22 +31,24 @@
 <footer>
     <ul>
         <li>
-            <img src="" alt="Instagram icon" />
+            <!-- <img src="" alt="Instagram icon" /> -->
+            <IconBrandInstagram />
             <a href="#">@Ronkies</a>
         </li>
         <li>
-            <img src="" alt="Facebook icon " />
+            <!-- <img src="" alt="Facebook icon " /> -->
+            <IconBrandFacebook />
             <a href="#">@Ronkies</a>
         </li>
     </ul>
 
     <ul>
         <li>
-            <img src="" alt="Phone icon" />
+            <IconPhone />
             <a href="tel:+">+41...</a>
         </li>
         <li>
-            <img src="" alt="Email icon" />
+            <IconMail />
             <a href="mailto:blabla@ronkies.ch">blabla@ronkies.ch</a>
         </li>
     </ul>
