@@ -2,6 +2,75 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
+<style>
+    figure {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: var(--space-lg);
+
+        img {
+            min-width: 20rem;
+            width: 30%;
+        }
+
+        figcaption {
+            flex: 1;
+
+            ul {
+                li {
+                    margin-bottom: var(--space-sm);
+                }
+            }
+        }
+    }
+</style>
+
 <BaseLayout pageTitle="Über uns">
-    <h2>Das sind wir!</h2>
+    <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto in
+        officia incidunt, dignissimos maiores blanditiis aliquam? Quisquam velit
+        quos dolore omnis id vel voluptas placeat, nobis modi, sunt autem
+        corporis.
+    </p>
+
+    <section slot="sections">
+        <figure>
+            <img src="" alt="" />
+            <figcaption>
+                <h2>Ronja Stampa</h2>
+                <ul>
+                    <li>Produktionsleitung</li>
+                    <li>
+                        <a href="mailto:eisfee@ronkies.ch">eisfee@ronkies.ch</a>
+                    </li>
+                </ul>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Dicta modi ducimus illum ipsa ut deleniti necessitatibus
+                    natus voluptates maxime sint? Dolores ad alias accusantium
+                    cumque voluptas, accusamus earum nihil eum.
+                </p>
+            </figcaption>
+        </figure>
+    </section>
+
+    <section slot="sections">
+        <figure>
+            <figcaption>
+                <h2>Tom Schnyder</h2>
+                <ul>
+                    <li>Susch öppis</li>
+                    <li>
+                        <a href="mailto:eiself@ronkies.ch">eiself@ronkies.ch</a>
+                    </li>
+                </ul>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi impedit
+                fugit quam fuga dolorum nisi aspernatur? Ipsam sequi totam tempora
+                iste natus iure consequuntur sed? Asperiores consequatur similique
+                provident iure!
+            </figcaption>
+            <img width="30%" height="10rem" src="" alt="" />
+        </figure>
+    </section>
 </BaseLayout>

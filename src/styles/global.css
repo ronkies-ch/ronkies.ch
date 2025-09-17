@@ -13,6 +13,10 @@ a {
     text-decoration: none;
 }
 
+li {
+    list-style: none;
+}
+
 h1 {
     font-size: 3rem;
     text-transform: uppercase;

@@ -46,9 +46,17 @@ const { pageTitle } = Astro.props;
                 flex: 1;
             }
 
-            .wrapper + section,
+            section {
+                padding-block: var(--space-lg);
+
+                &:nth-of-type(even) {
+                    background-color: var(--background-variant);
+                }
+            }
+
+            .wrapper ~ section,
             .wrapper {
-                margin: 1rem auto;
+                margin-top: 1rem;
                 padding-inline: 15vw;
 
                 @media (width <= 800px) {
@@ -66,6 +74,10 @@ const { pageTitle } = Astro.props;
 
             h1 {
                 margin-bottom: 3rem;
+            }
+
+            a {
+                color: var(--surface);
             }
         </style>
     </head>
