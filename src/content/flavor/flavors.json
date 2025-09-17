@@ -1,0 +1,51 @@
+[
+    {
+        "id": "dalmatiner",
+        "alias": "Dalmatiner",
+        "label": "Straciatella",
+        "color": "#959392",
+        "icon": "./icon_dalmatiner.png"
+    },
+    {
+        "id": "0815",
+        "alias": "0815",
+        "label": "Vanille",
+        "color": "#FFECD4",
+        "icon": "./icon_0815.png"
+    },
+    {
+        "id": "himbi",
+        "alias": "Himbi",
+        "label": "Himbeer-Sorbet",
+        "color": "#DA5387",
+        "icon": "./icon_himbi.png"
+    },
+    {
+        "id": "dalmatiner2",
+        "alias": "Dalmatiner",
+        "label": "Straciatella",
+        "color": "#959392",
+        "icon": "./icon_dalmatiner.png"
+    },
+    {
+        "id": "08152",
+        "alias": "0815",
+        "label": "Vanille",
+        "color": "#FFECD4",
+        "icon": "./icon_0815.png"
+    },
+    {
+        "id": "himbi2",
+        "alias": "Himbi",
+        "label": "Himbeer-Sorbet",
+        "color": "#DA5387",
+        "icon": "./icon_himbi.png"
+    },
+       {
+        "id": "dalmatiner3",
+        "alias": "Dalmatiner",
+        "label": "Straciatella",
+        "color": "#959392",
+        "icon": "./icon_dalmatiner.png"
+    }
+]

@@ -1,0 +1,28 @@
+---
+import { getCollection } from "astro:content";
+import OffsetCircleGrid from "../components/OffsetCircleGrid.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Flavor from "../components/Flavor.astro";
+
+const flavors = await getCollection("flavors");
+
+console.log(flavors);
+---
+
+<style></style>
+
+<BaseLayout pageTitle="Sortiment">
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
+        aliquam similique repudiandae eius quaerat voluptatem consectetur
+        necessitatibus ad atque, magni, voluptates dolor? Doloremque reiciendis
+        quia quasi, suscipit similique dolorum sit.
+    </p>
+
+    <br />
+    <br />
+    <br />
+    <OffsetCircleGrid>
+        {flavors.map(({ data }) => <Flavor flavor={data} />)}
+    </OffsetCircleGrid>
+</BaseLayout>

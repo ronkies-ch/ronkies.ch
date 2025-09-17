@@ -1,0 +1,51 @@
+---
+import type { InferEntrySchema } from "astro:content";
+
+type Props = {
+    flavor: InferEntrySchema<"flavors">;
+};
+const { flavor } = Astro.props;
+---
+
+<style define:vars={{ color: flavor.color }}>
+    .flavor {
+        background-color: #231f20;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #feebd3;
+        padding: 1rem;
+        gap: 0.5rem;
+        border-radius: 50%;
+        border: 5px solid var(--color);
+
+        img {
+            height: 100%;
+            width: auto;
+        }
+
+        > div {
+            text-align: center;
+
+            h2 {
+                text-transform: uppercase;
+                font-size: 1rem;
+                margin-bottom: 0.2rem;
+            }
+
+            h3 {
+                font-size: 0.8rem;
+                margin-bottom: 0;
+                font-weight: 500;
+            }
+        }
+    }
+</style>
+
+<div class="flavor">
+    <img src={flavor.icon.src} alt={flavor.alias} />
+    <div>
+        <h2>{flavor.alias}</h2>
+        <h3>{flavor.label}</h3>
+    </div>
+</div>
