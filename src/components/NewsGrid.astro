@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from "astro:content";
+import NewsPreview from "./NewsPreview.astro";
+
+type Props = {
+    news: CollectionEntry<"news">[];
+};
+
+const { news } = Astro.props;
+---
+
+<style>
+    div {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(23rem, 1fr));
+        gap: var(--space-md);
+    }
+</style>
+
+<div>
+    {news.map((news) => <NewsPreview news={news} />)}
+</div>

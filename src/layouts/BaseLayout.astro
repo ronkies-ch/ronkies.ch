@@ -49,8 +49,16 @@ const { pageTitle } = Astro.props;
             section {
                 padding-block: var(--space-lg);
 
+                article {
+                    background-color: var(--background-variant);
+                }
+
                 &:nth-of-type(even) {
                     background-color: var(--background-variant);
+
+                    article {
+                        background-color: var(--background);
+                    }
                 }
             }
 
@@ -78,6 +86,22 @@ const { pageTitle } = Astro.props;
 
             a {
                 color: var(--surface);
+            }
+
+            a.button {
+                display: inline-flex;
+                align-items: center;
+                gap: var(--space-sm);
+                padding: var(--space-md) var(--space-md);
+                color: var(--on-background);
+                border: 2px solid var(--on-background);
+
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background-color: var(--surface);
+                    color: var(--on-surface);
+                }
             }
         </style>
     </head>

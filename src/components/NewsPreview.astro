@@ -1,0 +1,47 @@
+---
+import { type CollectionEntry } from "astro:content";
+import { getExcerpt } from "../helper/html";
+
+type Props = {
+    news: CollectionEntry<"news">;
+};
+const { news } = Astro.props;
+
+function stripHtml(html: string, maxLength = 200): string {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    const text = div.textContent || div.innerText || "";
+    return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+}
+---
+
+<style>
+    .news {
+        display: grid;
+        grid-template-rows: subgrid;
+        grid-row: span 3;
+        padding: var(--space-lg);
+
+        p {
+            margin: 0;
+        }
+
+        ul {
+            li {
+                list-style: disc;
+            }
+            margin-left: 1rem;
+        }
+
+        a {
+            margin-left: auto;
+        }
+    }
+</style>
+
+<article class="news">
+    <h3>{news.data.title}</h3>
+    {news.rendered && getExcerpt(news.rendered.html)}
+
+    <a class="button" href={`/news/${news.id}`}>Mehr erfahren</a>
+</article>

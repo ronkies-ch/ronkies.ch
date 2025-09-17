@@ -1,0 +1,18 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+export async function getStaticPaths() {
+    const news = await getCollection("news");
+    return news.map((news) => ({
+        params: { id: news.id },
+        props: { news },
+    }));
+}
+// 2. For your template, you can get the entry directly from the prop
+const { news } = Astro.props;
+const { Content } = await render(news);
+---
+
+<BaseLayout pageTitle={news.data.title}>
+    <Content />
+</BaseLayout>

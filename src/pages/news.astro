@@ -1,0 +1,15 @@
+---
+import NewsGrid from "../components/NewsGrid.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const news = (await getCollection("news")).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<BaseLayout pageTitle="Neugikeiten">
+    <section>
+        <NewsGrid news={news} />
+    </section>
+</BaseLayout>
