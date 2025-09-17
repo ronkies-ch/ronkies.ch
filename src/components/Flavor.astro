@@ -9,11 +9,10 @@ const { flavor } = Astro.props;
 
 <style define:vars={{ color: flavor.color }}>
     .flavor {
-        background-color: #231f20;
+        background-color: var(--surface);
         display: flex;
         flex-direction: column;
         align-items: center;
-        color: #feebd3;
         padding: 1rem;
         gap: 0.5rem;
         border-radius: 50%;
@@ -31,12 +30,14 @@ const { flavor } = Astro.props;
                 text-transform: uppercase;
                 font-size: 1rem;
                 margin-bottom: 0.2rem;
+                color: var(--color);
             }
 
             h3 {
                 font-size: 0.8rem;
                 margin-bottom: 0;
                 font-weight: 500;
+                color: var(--on-surface);
             }
         }
     }

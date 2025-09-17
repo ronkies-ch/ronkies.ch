@@ -19,6 +19,14 @@ const { pageTitle } = Astro.props;
         <title>Ronkies - {pageTitle}</title>
 
         <style>
+            :root {
+                --background: white;
+                --background-variant: #ffecd4;
+                --on-background: black;
+                --surface: #231f20;
+                --on-surface: var(--background-variant);
+            }
+
             html {
                 height: 100%;
             }
@@ -26,6 +34,8 @@ const { pageTitle } = Astro.props;
                 display: flex;
                 flex-direction: column;
                 height: 100%;
+                color: var(--on-background);
+                background-color: var(--background);
             }
 
             main {
