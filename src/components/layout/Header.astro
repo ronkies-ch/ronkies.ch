@@ -4,22 +4,69 @@ import Navigation from "./Navigation.astro";
 
 <style>
     header {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 1rem;
-        align-items: center;
-        padding: 1rem;
-        background-color: #231f20;
+        --corner-height: 10rem;
 
-        img {
-            height: 3rem;
-            width: auto;
+        margin-bottom: calc(var(--corner-height) / 2);
+
+        .content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            height: 8rem;
+            align-items: center;
+            padding: 1rem 8rem;
+            padding-left: 4rem;
+            background-color: #231f20;
+            border-bottom-right-radius: 8rem;
+            position: relative;
+
+            img {
+                height: 3rem;
+                width: auto;
+            }
+        }
+
+        svg {
+            position: absolute;
+            width: 50%;
+            height: var(--corner-height);
+        }
+
+        @media (width < 800px) {
+            --corner-height: 5rem;
+
+            .content {
+                border-bottom-right-radius: 0;
+            }
+        }
+
+        @media (width < 500px) {
+            --corner-height: 3rem;
+
+            .content {
+                padding-inline: 2rem;
+            }
         }
     }
 </style>
 
 <header>
-    <img src="/ronkies-logo.png" alt="Ronkies Logo" />
-    <Navigation />
+    <div class="content">
+        <img src="/ronkies-logo.png" alt="Ronkies Logo" />
+        <Navigation />
+    </div>
+
+    <svg
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path d="
+    M0,0
+    H100
+    A100,100 0 0 0 0,100
+    Z" fill="#231f20"
+        ></path>
+    </svg>
 </header>

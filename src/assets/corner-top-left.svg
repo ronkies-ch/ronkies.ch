@@ -1,0 +1,8 @@
+   <svg width="0" height="0">
+        <defs>
+            <clipPath id="test" clipPathUnits="objectBoundingBox">
+                <!-- Nur oberer linker Viertelkreis sichtbar -->
+                <path d="M0,1 A1,1 0 0 1 1,0 L0,0 Z"></path>
+            </clipPath>
+        </defs>
+    </svg>
