@@ -1,7 +1,53 @@
 ---
+import { IconChevronRight } from "@tabler/icons-react";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import OffsetCircleGrid from "../components/OffsetCircleGrid.astro";
+import Flavor from "../components/Flavor.astro";
+
+const newFlavors = await getCollection("flavors", ({ data }) => data.new);
 ---
 
-<BaseLayout pageTitle="Home">
-	<h2>Welcome to Ronkies</h2>
+<style>
+	section {
+		padding-block: var(--space-lg);
+
+		&:nth-of-type(odd) {
+			background-color: var(--background-variant);
+		}
+
+		p {
+			margin-bottom: var(--space-lg);
+		}
+
+		a {
+			display: inline-flex;
+			align-items: center;
+			gap: var(--space-sm);
+			margin-top: var(--space-lg);
+			padding: var(--space-md) var(--space-md);
+			color: var(--on-background);
+			border: 2px solid var(--on-background);
+
+			transition: all 0.2s ease;
+
+			&:hover {
+				background-color: var(--surface);
+				color: var(--on-surface);
+			}
+		}
+	}
+</style>
+
+<BaseLayout pageTitle="Glacé aus Leidenschaft">
+	<section slot="sections" class="wrapper">
+		<h2>Neue Sorten!</h2>
+		<p>Endecke unseren neuen Geschmackserlebnisse.</p>
+
+		<OffsetCircleGrid>
+			{newFlavors.map(({ data }) => <Flavor flavor={data} />)}
+		</OffsetCircleGrid>
+
+		<a href="/assortment">Alle Sorten durchstöbern <IconChevronRight /></a>
+	</section>
 </BaseLayout>

@@ -4,21 +4,24 @@
         "alias": "Dalmatiner",
         "label": "Straciatella",
         "color": "#959392",
-        "icon": "./icon_dalmatiner.png"
+        "icon": "./icon_dalmatiner.png",
+        "new": true
     },
     {
         "id": "0815",
         "alias": "0815",
         "label": "Vanille",
         "color": "#FFECD4",
-        "icon": "./icon_0815.png"
+        "icon": "./icon_0815.png",
+        "new": true
     },
     {
         "id": "himbi",
         "alias": "Himbi",
         "label": "Himbeer-Sorbet",
         "color": "#DA5387",
-        "icon": "./icon_himbi.png"
+        "icon": "./icon_himbi.png",
+        "new": true
     },
     {
         "id": "dalmatiner2",

@@ -18,13 +18,17 @@ const { pageTitle } = Astro.props;
         <meta name="generator" content={Astro.generator} />
         <title>Ronkies - {pageTitle}</title>
 
-        <style>
+        <style is:global>
             :root {
                 --background: white;
-                --background-variant: #ffecd4;
+                --background-variant: #fff7ec;
                 --on-background: black;
                 --surface: #231f20;
-                --on-surface: var(--background-variant);
+                --on-surface: #ffecd4;
+
+                --space-sm: 0.5rem;
+                --space-md: 1rem;
+                --space-lg: 2rem;
             }
 
             html {
@@ -39,20 +43,24 @@ const { pageTitle } = Astro.props;
             }
 
             main {
-                margin: 1rem auto;
                 flex: 1;
-                width: 70vw;
+            }
+
+            .wrapper + section,
+            .wrapper {
+                margin: 1rem auto;
+                padding-inline: 15vw;
 
                 @media (width <= 800px) {
-                    width: 80vw;
+                    padding-inline: 10vw;
                 }
 
                 @media (width <= 500px) {
-                    width: 90vw;
+                    padding-inline: 5vw;
                 }
 
                 @media (width <= 400px) {
-                    width: 92vw;
+                    padding-inline: 4vw;
                 }
             }
 
@@ -64,8 +72,11 @@ const { pageTitle } = Astro.props;
     <body>
         <Header />
         <main>
-            <h1>{pageTitle}</h1>
-            <slot />
+            <div class="wrapper">
+                <h1>{pageTitle}</h1>
+                <slot />
+            </div>
+            <slot name="sections" />
         </main>
         <Footer />
     </body>
