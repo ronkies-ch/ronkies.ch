@@ -5,6 +5,7 @@ import { getCollection } from "astro:content";
 import OffsetCircleGrid from "../components/OffsetCircleGrid.astro";
 import Flavor from "../components/Flavor.astro";
 import NewsGrid from "../components/NewsGrid.astro";
+import Link from "../components/Link.astro";
 
 const newFlavors = await getCollection("flavors", ({ data }) => data.new);
 const news = (
@@ -39,9 +40,9 @@ const news = (
 					))}
 				</OffsetCircleGrid>
 
-				<a href="/assortment" class="button">
+				<Link href="/assortment" class="button">
 					Alle Sorten durchstöbern <IconChevronRight />
-				</a>
+				</Link>
 			</section>
 		)
 	}
@@ -50,6 +51,8 @@ const news = (
 
 		<NewsGrid news={news} />
 
-		<a class="button" href="/news">Mehr News lesen <IconChevronRight /></a>
+		<Link class="button" href="/news"
+			>Mehr News lesen <IconChevronRight /></Link
+		>
 	</section>
 </BaseLayout>

@@ -1,6 +1,7 @@
 ---
 import { type CollectionEntry } from "astro:content";
 import { getExcerpt } from "../helper/html";
+import Link from "./Link.astro";
 
 type Props = {
     news: CollectionEntry<"news">;
@@ -43,5 +44,5 @@ function stripHtml(html: string, maxLength = 200): string {
     <h3>{news.data.title}</h3>
     {news.rendered && getExcerpt(news.rendered.html)}
 
-    <a class="button" href={`/news/${news.id}`}>Mehr erfahren</a>
+    <Link class="button" href={`/news/${news.id}`}>Mehr erfahren</Link>
 </article>

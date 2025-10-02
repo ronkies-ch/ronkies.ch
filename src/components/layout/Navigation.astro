@@ -1,5 +1,5 @@
 ---
-
+import Link from "../Link.astro";
 ---
 
 <style>
@@ -7,15 +7,20 @@
         list-style: none;
         padding: 0;
         display: flex;
-        gap: 1rem;
+        gap: 1.5rem;
 
         li a {
             color: var(--on-surface);
+        }
+
+        @media (width < 500px) {
+            font-size: 1rem;
         }
     }
 </style>
 
 <ul>
-    <li><a href="/assortment/">Sortiment</a></li>
-    <li><a href="/about/">Über uns</a></li>
+    <li><Link href="/locations">Verkaufsstellen</Link></li>
+    <li><Link href="/assortment">Sortiment</Link></li>
+    <li><Link href="/about">Über uns</Link></li>
 </ul>
