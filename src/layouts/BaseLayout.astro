@@ -81,7 +81,13 @@ const { pageTitle } = Astro.props;
             }
 
             h1 {
+                font-size: 3rem;
                 margin-bottom: 3rem;
+                text-transform: uppercase;
+
+                @media (width <= 800px) {
+                    font-size: 2rem;
+                }
             }
 
             a {
