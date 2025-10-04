@@ -1,4 +1,6 @@
 ---
+import logo from "../../assets/logo.png";
+
 import Link from "../Link.astro";
 import Navigation from "./Navigation.astro";
 ---
@@ -55,7 +57,7 @@ import Navigation from "./Navigation.astro";
 <header>
     <div class="content">
         <Link href="">
-            <img src="ronkies-logo.png" alt="Ronkies Logo" />
+            <img src={logo.src} alt="Ronkies Logo" />
         </Link>
         <Navigation />
     </div>
