@@ -1,5 +1,15 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getEntry, render } from "astro:content";
+
+const page = await getEntry("pages", "about");
+const { Content } = await render(page!);
+
+const ronja = await getEntry("pages", "about/ronja");
+const { Content: ContentRonja } = await render(ronja!);
+
+const tom = await getEntry("pages", "about/tom");
+const { Content: ContentTom } = await render(tom!);
 ---
 
 <style>
@@ -26,31 +36,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     }
 </style>
 
-<BaseLayout pageTitle="Über uns">
-    <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto in
-        officia incidunt, dignissimos maiores blanditiis aliquam? Quisquam velit
-        quos dolore omnis id vel voluptas placeat, nobis modi, sunt autem
-        corporis.
-    </p>
+<BaseLayout pageTitle={page?.data.title ?? ""}>
+    <Content />
 
     <section slot="sections">
         <figure>
-            <img src="" alt="" />
+            <img src={ronja!.data.image!.src} alt="Ronja" />
             <figcaption>
-                <h2>Ronja Stampa</h2>
-                <ul>
-                    <li>Produktionsleitung</li>
-                    <li>
-                        <a href="mailto:eisfee@ronkies.ch">eisfee@ronkies.ch</a>
-                    </li>
-                </ul>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Dicta modi ducimus illum ipsa ut deleniti necessitatibus
-                    natus voluptates maxime sint? Dolores ad alias accusantium
-                    cumque voluptas, accusamus earum nihil eum.
-                </p>
+                <ContentRonja />
             </figcaption>
         </figure>
     </section>
@@ -58,19 +51,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <section slot="sections">
         <figure>
             <figcaption>
-                <h2>Tom Schnyder</h2>
-                <ul>
-                    <li>Susch öppis</li>
-                    <li>
-                        <a href="mailto:eiself@ronkies.ch">eiself@ronkies.ch</a>
-                    </li>
-                </ul>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi impedit
-                fugit quam fuga dolorum nisi aspernatur? Ipsam sequi totam tempora
-                iste natus iure consequuntur sed? Asperiores consequatur similique
-                provident iure!
+                <ContentTom />
             </figcaption>
-            <img width="30%" height="10rem" src="" alt="" />
+            <img src={ronja!.data.image!.src} alt="Tom" />
         </figure>
     </section>
 </BaseLayout>
