@@ -17,9 +17,6 @@ const flavors = await getCollection("flavors");
         quia quasi, suscipit similique dolorum sit.
     </p>
 
-    <br />
-    <br />
-    <br />
     <OffsetCircleGrid>
         {flavors.map(({ data }) => <Flavor flavor={data} />)}
     </OffsetCircleGrid>
