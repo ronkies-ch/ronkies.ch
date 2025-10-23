@@ -15,7 +15,8 @@ const flavors = defineCollection({
         label: z.string(),
         color: z.string(),
         icon: image(),
-        new: z.boolean().optional()
+        ingredients: z.string(),
+        new: z.boolean().optional(),
     })
 })
 
