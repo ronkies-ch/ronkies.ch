@@ -1,4 +1,0 @@
-[submodule "src/content"]
-    path = src/content
-    url = git@github.com:ronkies-ch/ronkies-content.git
-    branch = main
