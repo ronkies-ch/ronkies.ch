@@ -35,6 +35,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          submodules: true
+          token: ${{ secrets.CONTENT_ACCESS_TOKEN }}
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
