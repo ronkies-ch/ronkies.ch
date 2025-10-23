@@ -1,11 +1,11 @@
 ---
-import { IconChevronRight } from "@tabler/icons-react";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import OffsetCircleGrid from "../components/OffsetCircleGrid.astro";
 import Flavor from "../components/Flavor.astro";
 import NewsGrid from "../components/NewsGrid.astro";
 import Link from "../components/Link.astro";
+import { Icon } from "astro-icon/components";
 
 const newFlavors = await getCollection("flavors", ({ data }) => data.new);
 const news = (
@@ -41,7 +41,8 @@ const news = (
 				</OffsetCircleGrid>
 
 				<Link href="/assortment" class="button">
-					Alle Sorten durchstöbern <IconChevronRight />
+					Alle Sorten durchstöbern{" "}
+					<Icon name="tabler:chevron-right" />
 				</Link>
 			</section>
 		)
@@ -52,7 +53,7 @@ const news = (
 		<NewsGrid news={news} />
 
 		<Link class="button" href="/news"
-			>Mehr News lesen <IconChevronRight /></Link
+			>Mehr News lesen <Icon name="tabler:chevron-right" /></Link
 		>
 	</section>
 </BaseLayout>

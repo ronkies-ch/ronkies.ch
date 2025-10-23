@@ -9,13 +9,10 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/react": "^4.3.1",
-    "@tabler/icons-react": "^3.35.0",
-    "@types/react": "^19.1.13",
-    "@types/react-dom": "^19.1.9",
+    "@iconify-json/tabler": "^1.2.23",
+    "@tabler/icons": "^3.35.0",
     "astro": "^5.9.3",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
+    "astro-icon": "^1.1.5",
     "string-strip-html": "^13.4.13"
   }
 }
