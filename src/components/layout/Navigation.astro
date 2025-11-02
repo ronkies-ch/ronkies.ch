@@ -1,5 +1,8 @@
 ---
+import { getCollection } from "astro:content";
 import Link from "../Link.astro";
+
+const pages = await getCollection("pages", ({ data }) => data.inNavigation);
 ---
 
 <style>
@@ -20,7 +23,11 @@ import Link from "../Link.astro";
 </style>
 
 <ul>
-    <li><Link href="/locations">Verkaufsstellen</Link></li>
-    <li><Link href="/assortment">Sortiment</Link></li>
-    <li><Link href="/about">Über uns</Link></li>
+    {
+        pages.map(({ data, id }) => (
+            <li>
+                <Link href={`/${id}`}>{data.title}</Link>
+            </li>
+        ))
+    }
 </ul>
