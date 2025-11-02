@@ -1,15 +1,24 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection, getEntry, render } from "astro:content";
-import OffsetCircleGrid from "../components/OffsetCircleGrid.astro";
-import Flavor from "../components/Flavor.astro";
-import NewsGrid from "../components/NewsGrid.astro";
-import Link from "../components/Link.astro";
+import OffsetCircleGrid from "../../components/OffsetCircleGrid.astro";
+import Flavor from "../../components/Flavor.astro";
+import NewsGrid from "../../components/NewsGrid.astro";
+import Link from "../../components/Link.astro";
 import { Icon } from "astro-icon/components";
+import {
+	getLocalizedStaticPaths,
+	localizedContentPath,
+} from "../../i18n/utils";
 
-const page = await getEntry("pages", "index");
+export const getStaticPaths = getLocalizedStaticPaths;
 
-const flavorsSection = await getEntry("sections", "index/sections/flavors");
+const page = await getEntry("pages", localizedContentPath(Astro.url, "index"));
+
+const flavorsSection = await getEntry(
+	"sections",
+	localizedContentPath(Astro.url, "index/sections/flavors"),
+);
 const { Content: FlavorsContent } = await render(flavorsSection!);
 
 const newFlavors = await getCollection("flavors", ({ data }) => data.new);
@@ -20,7 +29,10 @@ const news = (
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 	.slice(0, 3);
 
-const newSection = await getEntry("sections", "index/sections/news");
+const newSection = await getEntry(
+	"sections",
+	localizedContentPath(Astro.url, "index/sections/news"),
+);
 const { Content: NewsContent } = await render(newSection!);
 ---
 

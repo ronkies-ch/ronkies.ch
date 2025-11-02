@@ -1,12 +1,18 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import {
+    getLocalizedStaticPaths,
+    localizedContentPath,
+} from "../../i18n/utils";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection, getEntry, render } from "astro:content";
 
-const page = await getEntry("pages", "about");
+export const getStaticPaths = getLocalizedStaticPaths;
+
+const page = await getEntry("pages", localizedContentPath(Astro.url, "about"));
 const { Content } = await render(page!);
 
 const sections = await getCollection("sections", ({ id }) =>
-    id.startsWith("about/sections/"),
+    id.includes("about/sections/"),
 );
 ---
 

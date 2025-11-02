@@ -1,22 +1,23 @@
+import { extendI18nLoaderSchema, i18nLoader } from "astro-loader-i18n";
 import { file, glob } from "astro/loaders";
 import { defineCollection, z } from "astro:content";
 
 const pages = defineCollection({
-  loader: glob({ base: "src/content/pages", pattern: "*/*.md" }),
-  schema: ({ image }) => z.object({
+  loader: i18nLoader({ base: "src/content/pages", pattern: "**/*.md" }),
+  schema: ({ image }) => extendI18nLoaderSchema(z.object({
     title: z.string().optional(),
     image: image().optional(),
     inNavigation: z.boolean().optional()
-  }),
+  })),
 });
 
 const sections = defineCollection({
-  loader: glob({ base: "src/content/pages", pattern: "**/sections/*.md" }),
-  schema: ({ image }) => z.object({
+  loader: i18nLoader({ base: "src/content/pages", pattern: "**/sections/*.md" }),
+  schema: ({ image }) => extendI18nLoaderSchema(z.object({
     heading: z.string().optional(),
     image: image().optional(),
     action: z.string().optional()
-  }),
+  })),
 });
 
 const flavors = defineCollection({

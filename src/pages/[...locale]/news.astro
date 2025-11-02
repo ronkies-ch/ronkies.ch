@@ -1,11 +1,17 @@
 ---
 import { getEntry } from "astro:content";
-import NewsGrid from "../components/NewsGrid.astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
+import NewsGrid from "../../components/NewsGrid.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import { render } from "astro:content";
+import {
+    getLocalizedStaticPaths,
+    localizedContentPath,
+} from "../../i18n/utils";
 
-const page = await getEntry("pages", "news");
+export const getStaticPaths = getLocalizedStaticPaths;
+
+const page = await getEntry("pages", localizedContentPath(Astro.url, "news"));
 const { Content } = await render(page!);
 
 const news = (await getCollection("news")).sort(

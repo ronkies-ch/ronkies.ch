@@ -26,7 +26,7 @@ const pages = await getCollection("pages", ({ data }) => data.inNavigation);
     {
         pages.map(({ data, id }) => (
             <li>
-                <Link href={`/${id}`}>{data.title}</Link>
+                <Link href={`/${id.split("/")[1]}`}>{data.title}</Link>
             </li>
         ))
     }
