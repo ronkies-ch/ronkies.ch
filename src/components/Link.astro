@@ -5,8 +5,6 @@ type Props = {
 };
 
 const { href, class: className } = Astro.props;
-
-console.log(import.meta.env.BASE_URL);
 ---
 
 <a class={className} href={import.meta.env.BASE_URL + href}>

@@ -1,15 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getEntry, render } from "astro:content";
+import { getCollection, getEntry, render } from "astro:content";
 
 const page = await getEntry("pages", "about");
 const { Content } = await render(page!);
 
-const ronja = await getEntry("pages", "about/ronja");
-const { Content: ContentRonja } = await render(ronja!);
-
-const tom = await getEntry("pages", "about/tom");
-const { Content: ContentTom } = await render(tom!);
+const sections = await getCollection("sections", ({ id }) =>
+    id.startsWith("about/sections/"),
+);
 ---
 
 <style>
@@ -34,26 +32,31 @@ const { Content: ContentTom } = await render(tom!);
             }
         }
     }
+
+    section:nth-child(2n) {
+        img {
+            order: 2;
+        }
+    }
 </style>
 
 <BaseLayout pageTitle={page?.data.title ?? ""}>
     <Content />
 
-    <section slot="sections">
-        <figure>
-            <img src={ronja!.data.image!.src} alt="Ronja" />
-            <figcaption>
-                <ContentRonja />
-            </figcaption>
-        </figure>
-    </section>
+    {
+        sections.map(async (section) => {
+            const { Content } = await render(section!);
 
-    <section slot="sections">
-        <figure>
-            <figcaption>
-                <ContentTom />
-            </figcaption>
-            <img src={ronja!.data.image!.src} alt="Tom" />
-        </figure>
-    </section>
+            return (
+                <section slot="sections">
+                    <figure>
+                        <img src={section!.data.image!.src} alt="Ronja" />
+                        <figcaption>
+                            <Content />
+                        </figcaption>
+                    </figure>
+                </section>
+            );
+        })
+    }
 </BaseLayout>

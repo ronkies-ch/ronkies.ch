@@ -7,13 +7,6 @@ type Props = {
     news: CollectionEntry<"news">;
 };
 const { news } = Astro.props;
-
-function stripHtml(html: string, maxLength = 200): string {
-    const div = document.createElement("div");
-    div.innerHTML = html;
-    const text = div.textContent || div.innerText || "";
-    return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
-}
 ---
 
 <style>

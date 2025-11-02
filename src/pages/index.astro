@@ -1,18 +1,27 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getCollection } from "astro:content";
+import { getCollection, getEntry, render } from "astro:content";
 import OffsetCircleGrid from "../components/OffsetCircleGrid.astro";
 import Flavor from "../components/Flavor.astro";
 import NewsGrid from "../components/NewsGrid.astro";
 import Link from "../components/Link.astro";
 import { Icon } from "astro-icon/components";
 
+const page = await getEntry("pages", "index");
+
+const flavorsSection = await getEntry("sections", "index/sections/flavors");
+const { Content: FlavorsContent } = await render(flavorsSection!);
+
 const newFlavors = await getCollection("flavors", ({ data }) => data.new);
+
 const news = (
 	await getCollection("news", ({ data }) => data.pubDate <= new Date())
 )
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 	.slice(0, 3);
+
+const newSection = await getEntry("sections", "index/sections/news");
+const { Content: NewsContent } = await render(newSection!);
 ---
 
 <style>
@@ -27,12 +36,12 @@ const news = (
 	}
 </style>
 
-<BaseLayout pageTitle="Glacé aus Leidenschaft">
+<BaseLayout pageTitle={page?.data.title!}>
 	{
 		newFlavors.length && (
 			<section slot="sections">
-				<h2>Neue Sorten!</h2>
-				<p>Endecke unseren neuen Geschmackserlebnisse.</p>
+				<h2>{flavorsSection?.data.heading}</h2>
+				<FlavorsContent />
 
 				<OffsetCircleGrid>
 					{newFlavors.map(({ data }) => (
@@ -41,19 +50,22 @@ const news = (
 				</OffsetCircleGrid>
 
 				<Link href="/assortment" class="button">
-					Alle Sorten durchstöbern{" "}
+					{flavorsSection?.data.action}{" "}
 					<Icon name="tabler:chevron-right" />
 				</Link>
 			</section>
 		)
 	}
 	<section slot="sections">
-		<h2>Neues aus der Eisfabrik</h2>
+		<h2>{newSection?.data.heading}</h2>
+
+		<NewsContent />
 
 		<NewsGrid news={news} />
 
 		<Link class="button" href="/news"
-			>Mehr News lesen <Icon name="tabler:chevron-right" /></Link
+			>{newSection?.data.action}
+			<Icon name="tabler:chevron-right" /></Link
 		>
 	</section>
 </BaseLayout>
