@@ -1,34 +1,31 @@
 ---
-import { getCollection } from "astro:content";
-import OffsetCircleGrid from "../../components/OffsetCircleGrid.astro";
+import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Flavor from "../../components/Flavor.astro";
-import { getEntry } from "astro:content";
-import { render } from "astro:content";
-import {
-    getLocalizedStaticPaths,
-    localizedContentPath,
-} from "../../i18n/utils";
+import OffsetCircleGrid from "../../components/OffsetCircleGrid.astro";
+import { getLocalizedStaticPaths } from "../../i18n/utils";
 
-export const getStaticPaths = getLocalizedStaticPaths;
+export const getStaticPaths = async () => {
+	const pages = await getCollection("pages", ({ id }) =>
+		id.endsWith("assortment"),
+	);
 
-console.log(localizedContentPath(Astro.url, "assortment"));
+	const flavors = await getCollection("flavors");
 
-const page = await getEntry(
-    "pages",
-    localizedContentPath(Astro.url, "assortment"),
-);
+	return getLocalizedStaticPaths({ page: pages }, { flavors });
+};
+
+const { page, flavors } = Astro.props;
+
 const { Content } = await render(page!);
-
-const flavors = await getCollection("flavors");
 ---
 
 <style></style>
 
 <BaseLayout pageTitle="Sortiment">
-    <Content />
+	<Content />
 
-    <OffsetCircleGrid>
-        {flavors.map(({ data }) => <Flavor flavor={data} />)}
-    </OffsetCircleGrid>
+	<OffsetCircleGrid>
+		{flavors?.map(({ data }) => <Flavor flavor={data} />)}
+	</OffsetCircleGrid>
 </BaseLayout>

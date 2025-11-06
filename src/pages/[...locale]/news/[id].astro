@@ -1,14 +1,15 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import { locales } from "../../../i18n/ui";
+import { getLocalizedStaticPaths } from "../../../i18n/utils";
 
 export async function getStaticPaths() {
     const news = await getCollection("news");
-    return news.flatMap((news) =>
-        [...locales, ""].map((locale) => ({
-            params: { id: news.id, locale },
-            props: { news },
+
+    return getLocalizedStaticPaths({}, { news }).flatMap((p) =>
+        p.props.news?.map((n) => ({
+            params: { ...p.params, id: n.id },
+            props: { news: n },
         })),
     );
 }

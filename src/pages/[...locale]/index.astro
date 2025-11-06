@@ -1,25 +1,32 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { getCollection, getEntry, render } from "astro:content";
+import { getCollection, render } from "astro:content";
 import OffsetCircleGrid from "../../components/OffsetCircleGrid.astro";
 import Flavor from "../../components/Flavor.astro";
 import NewsGrid from "../../components/NewsGrid.astro";
 import Link from "../../components/Link.astro";
 import { Icon } from "astro-icon/components";
-import {
-	getLocalizedStaticPaths,
-	localizedContentPath,
-} from "../../i18n/utils";
+import { getLocalizedStaticPaths } from "../../i18n/utils";
 
-export const getStaticPaths = getLocalizedStaticPaths;
+export const getStaticPaths = async () => {
+	const flavorsSections = await getCollection("sections", ({ id }) =>
+		id.includes("/index/sections/flavors"),
+	);
 
-const page = await getEntry("pages", localizedContentPath(Astro.url, "index"));
+	const newsSections = await getCollection("sections", ({ id }) =>
+		id.includes("/index/sections/news"),
+	);
 
-const flavorsSection = await getEntry(
-	"sections",
-	localizedContentPath(Astro.url, "index/sections/flavors"),
-);
-const { Content: FlavorsContent } = await render(flavorsSection!);
+	const pages = await getCollection("pages", ({ id }) =>
+		id.endsWith("index"),
+	);
+
+	return getLocalizedStaticPaths({
+		page: pages,
+		flavorsSection: flavorsSections,
+		newsSection: newsSections,
+	});
+};
 
 const newFlavors = await getCollection("flavors", ({ data }) => data.new);
 
@@ -29,11 +36,10 @@ const news = (
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 	.slice(0, 3);
 
-const newSection = await getEntry(
-	"sections",
-	localizedContentPath(Astro.url, "index/sections/news"),
-);
-const { Content: NewsContent } = await render(newSection!);
+const { page, flavorsSection, newsSection } = Astro.props;
+
+const { Content: FlavorsContent } = await render(flavorsSection!);
+const { Content: NewsContent } = await render(newsSection!);
 ---
 
 <style>
@@ -69,14 +75,14 @@ const { Content: NewsContent } = await render(newSection!);
 		)
 	}
 	<section slot="sections">
-		<h2>{newSection?.data.heading}</h2>
+		<h2>{newsSection?.data.heading}</h2>
 
 		<NewsContent />
 
 		<NewsGrid news={news} />
 
 		<Link class="button" href="/news"
-			>{newSection?.data.action}
+			>{newsSection?.data.action}
 			<Icon name="tabler:chevron-right" /></Link
 		>
 	</section>

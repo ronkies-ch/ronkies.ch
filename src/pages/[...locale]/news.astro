@@ -1,28 +1,28 @@
 ---
-import { getEntry } from "astro:content";
+import { getCollection, render } from "astro:content";
 import NewsGrid from "../../components/NewsGrid.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { getCollection } from "astro:content";
-import { render } from "astro:content";
-import {
-    getLocalizedStaticPaths,
-    localizedContentPath,
-} from "../../i18n/utils";
+import { getLocalizedStaticPaths } from "../../i18n/utils";
 
-export const getStaticPaths = getLocalizedStaticPaths;
+export const getStaticPaths = async () => {
+    const pages = await getCollection("pages", ({ id }) => id.endsWith("news"));
 
-const page = await getEntry("pages", localizedContentPath(Astro.url, "news"));
+    const news = (await getCollection("news")).sort(
+        (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+    );
+
+    return getLocalizedStaticPaths({ page: pages }, { news });
+};
+
+const { page, news } = Astro.props;
+
 const { Content } = await render(page!);
-
-const news = (await getCollection("news")).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
 ---
 
 <BaseLayout pageTitle={page?.data.title!}>
     <Content />
 
     <section>
-        <NewsGrid news={news} />
+        <NewsGrid news={news ?? []} />
     </section>
 </BaseLayout>

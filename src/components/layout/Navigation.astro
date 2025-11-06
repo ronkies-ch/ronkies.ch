@@ -1,8 +1,14 @@
 ---
 import { getCollection } from "astro:content";
 import Link from "../Link.astro";
+import { getLangFromUrl } from "../../i18n/utils";
 
-const pages = await getCollection("pages", ({ data }) => data.inNavigation);
+const locale = getLangFromUrl(Astro.url);
+
+const pages = await getCollection(
+    "pages",
+    ({ data }) => data.inNavigation && data.locale === locale,
+);
 ---
 
 <style>

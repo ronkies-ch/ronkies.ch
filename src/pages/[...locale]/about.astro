@@ -1,19 +1,23 @@
 ---
-import {
-    getLocalizedStaticPaths,
-    localizedContentPath,
-} from "../../i18n/utils";
+import { getLocalizedStaticPaths } from "../../i18n/utils";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { getCollection, getEntry, render } from "astro:content";
+import { getCollection, render } from "astro:content";
 
-export const getStaticPaths = getLocalizedStaticPaths;
+export const getStaticPaths = async () => {
+    const pages = await getCollection("pages", ({ id }) =>
+        id.endsWith("/about"),
+    );
 
-const page = await getEntry("pages", localizedContentPath(Astro.url, "about"));
+    const sections = await getCollection("sections", ({ id }) =>
+        id.includes("about/sections/"),
+    );
+
+    return getLocalizedStaticPaths({ page: pages }, { sections });
+};
+
+const { page, sections } = Astro.props;
+
 const { Content } = await render(page!);
-
-const sections = await getCollection("sections", ({ id }) =>
-    id.includes("about/sections/"),
-);
 ---
 
 <style>
@@ -50,7 +54,7 @@ const sections = await getCollection("sections", ({ id }) =>
     <Content />
 
     {
-        sections.map(async (section) => {
+        sections?.map(async (section) => {
             const { Content } = await render(section!);
 
             return (

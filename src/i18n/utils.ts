@@ -1,26 +1,62 @@
-import { ui, defaultLocale, languages, locales } from './ui';
+import type { AnyEntryMap, CollectionEntry } from "astro:content";
+import { ui, defaultLocale, locales } from "./ui";
 
 export function getLangFromUrl(url: URL) {
-    const [, _basePath, lang] = url.pathname.split('/'); // TOOD: remove _basePath once real domain is registered
-    if (lang in ui) return lang as keyof typeof ui;
-    return defaultLocale;
+	const [, _basePath, lang] = url.pathname.split("/"); // TOOD: remove _basePath once real domain is registered
+	if (lang in ui) return lang as keyof typeof ui;
+	return defaultLocale;
 }
 
-
 export function useTranslatedPath(lang: keyof typeof ui) {
-    return function translatePath(path: string, l: string = lang) {
-        return l === defaultLocale ? path : `/${l}${path}`
-    }
+	return function translatePath(path: string, l: string = lang) {
+		return l === defaultLocale ? path : `/${l}${path}`;
+	};
 }
 
 export function localizedContentPath(url: URL, path: string) {
-    const test = getLangFromUrl(url);
-    console.log(test);
-
-    return `${getLangFromUrl(url).toLowerCase()}/${path}`
+	return `${getLangFromUrl(url).toLowerCase()}/${path}`;
 }
 
-export function getLocalizedStaticPaths() {
-    return [{ params: { locale: "" } }, ...locales.map((l) => ({ params: { locale: l } }))];
+type Entries<T> = {
+	[K in keyof T]: [K, T[K]];
+}[keyof T][];
 
+export function getLocalizedStaticPaths<
+	E extends Record<string, CollectionEntry<keyof AnyEntryMap>[]>,
+	C extends Record<string, CollectionEntry<keyof AnyEntryMap>[]>,
+>(entries: E, collections?: C) {
+	return ["", ...locales].map((locale = defaultLocale) => {
+		const entryMap = (Object.entries(entries) as Entries<E>).reduce(
+			(acc, [key, collection]) => {
+				acc[key] = collection.find(
+					(p) =>
+						!("locale" in p.data) ||
+						p.data.locale === locale ||
+						p.data.locale === defaultLocale,
+				);
+				return acc;
+			},
+			{} as { [K in keyof E]: E[K][number] | undefined },
+		);
+
+		const collectionMap = (
+			Object.entries(collections ?? []) as Entries<C>
+		).reduce(
+			(acc, [key, collection]) => {
+				acc[key] = collection.filter(
+					(p) =>
+						!("locale" in p.data) ||
+						p.data.locale === locale ||
+						p.data.locale === defaultLocale,
+				);
+				return acc;
+			},
+			{} as { [K in keyof C]: C[K][number][] | undefined },
+		);
+
+		return {
+			params: { locale },
+			props: { ...entryMap, ...collectionMap },
+		};
+	});
 }
