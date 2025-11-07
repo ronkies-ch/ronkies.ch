@@ -1,5 +1,6 @@
 ---
 import type { InferEntrySchema } from "astro:content";
+import { translateField } from "../i18n/utils";
 
 type Props = {
     flavor: InferEntrySchema<"flavors">;
@@ -111,13 +112,13 @@ const { flavor } = Astro.props;
             <img src={flavor.icon.src} alt={flavor.alias} />
             <div>
                 <h2>{flavor.alias}</h2>
-                <h3>{flavor.label}</h3>
+                <h3>{translateField(flavor.label, Astro.url)}</h3>
             </div>
         </div>
         <div class="flavor-back">
             <h2>Inhaltsstoffe</h2>
             <p>
-                {flavor.ingredients}
+                {translateField(flavor.ingredients, Astro.url)}
             </p>
         </div>
     </div>

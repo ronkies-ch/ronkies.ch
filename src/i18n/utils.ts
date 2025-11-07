@@ -1,5 +1,5 @@
 import type { AnyEntryMap, CollectionEntry } from "astro:content";
-import { ui, defaultLocale, locales } from "./ui";
+import { ui, defaultLocale, locales, type languages } from "./ui";
 
 export function getLangFromUrl(url: URL) {
 	const [, _basePath, lang] = url.pathname.split("/"); // TOOD: remove _basePath once real domain is registered
@@ -13,8 +13,13 @@ export function useTranslatedPath(lang: keyof typeof ui) {
 	};
 }
 
-export function localizedContentPath(url: URL, path: string) {
-	return `${getLangFromUrl(url).toLowerCase()}/${path}`;
+export function translateField(
+	field: { [L in keyof typeof languages]?: string | undefined } | string,
+	url: URL,
+) {
+	return typeof field === "string"
+		? field
+		: (field[getLangFromUrl(url)] ?? field[defaultLocale]);
 }
 
 type Entries<T> = {
