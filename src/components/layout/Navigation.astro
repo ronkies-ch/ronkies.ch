@@ -2,12 +2,22 @@
 import { getCollection } from "astro:content";
 import Link from "../Link.astro";
 import { getLangFromUrl } from "../../i18n/utils";
+import { defaultLocale } from "../../i18n/ui";
 
 const locale = getLangFromUrl(Astro.url);
 
-const pages = await getCollection(
-    "pages",
-    ({ data }) => data.inNavigation && data.locale === locale,
+const allPages = await getCollection("pages", ({ data }) => data.inNavigation);
+const defaultLangPages = allPages.filter(
+    ({ data }) => data.locale === defaultLocale,
+);
+
+const localizedPages = defaultLangPages.map(
+    (defaultPage) =>
+        allPages.find(
+            ({ data }) =>
+                defaultPage.data.translationId === data.translationId &&
+                data.locale === locale,
+        ) ?? defaultPage,
 );
 ---
 
@@ -30,7 +40,7 @@ const pages = await getCollection(
 
 <ul>
     {
-        pages.map(({ data, id }) => (
+        localizedPages.map(({ data, id }) => (
             <li>
                 <Link href={`/${id.split("/")[1]}`}>{data.title}</Link>
             </li>
