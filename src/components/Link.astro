@@ -3,15 +3,19 @@ import { useTranslatedPath, getLangFromUrl } from "../i18n/utils";
 
 type Props = {
     href: string;
+    keepLocale?: boolean;
     class?: string;
 };
 
 const lang = getLangFromUrl(Astro.url);
 const translatePath = useTranslatedPath(lang);
 
-const { href, class: className } = Astro.props;
+const { href, class: className, keepLocale = true } = Astro.props;
 ---
 
-<a class={className} href={import.meta.env.BASE_URL + translatePath(href)}>
+<a
+    class={className}
+    href={import.meta.env.BASE_URL + (keepLocale ? translatePath(href) : href)}
+>
     <slot />
 </a>

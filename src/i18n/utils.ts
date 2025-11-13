@@ -7,6 +7,16 @@ export function getLangFromUrl(url: URL) {
 	return defaultLocale;
 }
 
+export function getPathWithoutLang(url: URL) {
+	const [, _basePath, lang, ...rest] = url.pathname.split("/"); // TOOD: remove _basePath once real domain is registered
+
+	if ((locales as string[]).includes(lang)) {
+		return rest.join("/");
+	}
+
+	return [lang, ...rest].join("/");
+}
+
 export function useTranslatedPath(lang: keyof typeof ui) {
 	return function translatePath(path: string, l: string = lang) {
 		return l === defaultLocale ? path : `/${l}${path}`;

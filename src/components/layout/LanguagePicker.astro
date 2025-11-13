@@ -1,0 +1,28 @@
+---
+import { defaultLocale, languages } from "../../i18n/ui";
+import { getPathWithoutLang } from "../../i18n/utils";
+import Link from "../Link.astro";
+---
+
+<style>
+    ul {
+        a {
+            color: var(--on-surface);
+        }
+    }
+</style>
+
+<ul>
+    {
+        Object.entries(languages).map(([lang, label]) => (
+            <li>
+                <Link
+                    keepLocale={false}
+                    href={`/${lang === defaultLocale ? "" : `${lang}/`}${getPathWithoutLang(Astro.url)}`}
+                >
+                    {label}
+                </Link>
+            </li>
+        ))
+    }
+</ul>
