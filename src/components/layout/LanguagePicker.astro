@@ -1,28 +1,56 @@
 ---
-import { defaultLocale, languages } from "../../i18n/ui";
-import { getPathWithoutLang } from "../../i18n/utils";
+import { Icon } from "astro-icon/components";
+import { defaultLocale, languageIcons, languages } from "../../i18n/ui";
+import { getLangFromUrl, getPathWithoutLang } from "../../i18n/utils";
 import Link from "../Link.astro";
+
+const locale = getLangFromUrl(Astro.url);
 ---
 
 <style>
+    div {
+        p {
+            color: var(--on-surface);
+            font-size: 0.8rem;
+        }
+        svg {
+            width: 1rem;
+            height: auto;
+        }
+    }
+
     ul {
         a {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
             color: var(--on-surface);
+
+            svg {
+                height: 1.2rem;
+                width: auto;
+            }
         }
     }
 </style>
 
-<ul>
-    {
-        Object.entries(languages).map(([lang, label]) => (
-            <li>
-                <Link
-                    keepLocale={false}
-                    href={`/${lang === defaultLocale ? "" : `${lang}/`}${getPathWithoutLang(Astro.url)}`}
-                >
-                    {label}
-                </Link>
-            </li>
-        ))
-    }
-</ul>
+<div>
+    <ul>
+        {
+            Object.entries(languages)
+                .filter(([lang]) => lang !== locale)
+                .map(([lang, label]) => (
+                    <li>
+                        <Link
+                            keepLocale={false}
+                            href={`/${lang === defaultLocale ? "" : `${lang}/`}${getPathWithoutLang(Astro.url)}`}
+                        >
+                            <Icon name="tabler:language" />
+                            {label}{" "}
+                            {languageIcons[lang as keyof typeof languages]}
+                        </Link>
+                    </li>
+                ))
+        }
+    </ul>
+</div>

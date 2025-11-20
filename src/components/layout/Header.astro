@@ -29,9 +29,19 @@ import Navigation from "./Navigation.astro";
                 height: 3rem;
                 width: auto;
             }
+
+            .navigation {
+                display: flex;
+                align-items: center;
+                > *:not(:last-child) {
+                    margin-right: var(--space-md);
+                    padding-right: var(--space-md);
+                    border-right: var(--on-surface) 1px solid;
+                }
+            }
         }
 
-        svg {
+        > svg {
             position: absolute;
             width: 50%;
             height: var(--corner-height);
@@ -60,8 +70,10 @@ import Navigation from "./Navigation.astro";
         <Link href="">
             <img src={logo.src} alt="Ronkies Logo" />
         </Link>
-        <Navigation />
-        <LanguagePicker />
+        <div class="navigation">
+            <Navigation />
+            <LanguagePicker />
+        </div>
     </div>
 
     <svg
