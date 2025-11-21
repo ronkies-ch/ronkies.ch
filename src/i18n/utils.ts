@@ -70,7 +70,7 @@ export function getLocalizedStaticPaths<
 		);
 
 		return {
-			params: { locale },
+			params: { locale: locale || defaultLocale },
 			props: { ...entryMap, ...collectionMap },
 		};
 	});
