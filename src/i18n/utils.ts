@@ -43,12 +43,13 @@ export function getLocalizedStaticPaths<
 	return ["", ...locales].map((locale = defaultLocale) => {
 		const entryMap = (Object.entries(entries) as Entries<E>).reduce(
 			(acc, [key, collection]) => {
-				acc[key] = collection.find(
-					(p) =>
-						!("locale" in p.data) ||
-						p.data.locale === locale ||
-						p.data.locale === defaultLocale,
-				);
+				acc[key] =
+					collection.find(
+						(p) => !("locale" in p.data) || p.data.locale === locale,
+					) ??
+					collection.find(
+						(e) => !("locale" in e.data) || e.data.locale === defaultLocale,
+					);
 				return acc;
 			},
 			{} as { [K in keyof E]: E[K][number] | undefined },
