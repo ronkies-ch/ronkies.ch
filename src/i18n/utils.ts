@@ -17,6 +17,12 @@ export function getPathWithoutLang(url: URL) {
 	return [lang, ...rest].join("/");
 }
 
+export function useTranslations(lang: keyof typeof ui) {
+	return function t(key: keyof (typeof ui)[typeof defaultLocale]) {
+		return ui[lang][key] || ui[defaultLocale][key];
+	};
+}
+
 export function useTranslatedPath(lang: keyof typeof ui) {
 	return function translatePath(path: string, l: string = lang) {
 		return l === defaultLocale ? path : `/${l}${path}`;

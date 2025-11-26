@@ -1,5 +1,9 @@
 ---
 import { Icon } from "astro-icon/components";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <style>
@@ -43,7 +47,7 @@ import { Icon } from "astro-icon/components";
 
 <footer>
     <ul>
-        <h3>Soziale Medien</h3>
+        <h3>{t("footer.socialMedia")}</h3>
         <li>
             <Icon name="tabler:brand-instagram" />
             <a href="#">@Ronkies</a>
@@ -55,7 +59,7 @@ import { Icon } from "astro-icon/components";
     </ul>
 
     <ul>
-        <h3>Kontaktiere uns</h3>
+        <h3>{t("footer.contactUs")}</h3>
         <li>
             <Icon name="tabler:phone" />
             <a href="tel:+">+41...</a>
@@ -67,7 +71,7 @@ import { Icon } from "astro-icon/components";
     </ul>
 
     <ul>
-        <h3>Hier sind wir zu finden</h3>
+        <h3>{t("footer.address")}</h3>
         <li>
             <Icon name="tabler:map-pin" />
             <a href="https://maps.app.goo.gl/5Mv3pBSrpfEtLTYM8">

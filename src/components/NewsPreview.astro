@@ -2,6 +2,10 @@
 import { type CollectionEntry } from "astro:content";
 import { getExcerpt } from "../helper/html";
 import Link from "./Link.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 type Props = {
     news: CollectionEntry<"news">;
@@ -37,5 +41,5 @@ const { news } = Astro.props;
     <h3>{news.data.title}</h3>
     {news.rendered && getExcerpt(news.rendered.html)}
 
-    <Link class="button" href={`/news/${news.id}`}>Mehr erfahren</Link>
+    <Link class="button" href={`/news/${news.id}`}>{t("learnMore")}</Link>
 </article>

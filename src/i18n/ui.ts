@@ -12,7 +12,19 @@ export const locales = Object.keys(languages) as (keyof typeof languages)[];
 
 export const defaultLocale: keyof typeof languages = "de-CH";
 
-export const ui: Record<keyof typeof languages, Record<string, string>> = {
-	"de-CH": {},
-	"de-DE": {},
+export const ui = {
+	"de-CH": {
+		"footer.socialMedia": "Soziali Medie",
+		"footer.contactUs": "Kontaktier üs",
+		"footer.address": "Da findet mer üs",
+		ingredients: "Inhaltsstoff",
+		learnMore: "Meh erfahre",
+	},
+	"de-DE": {
+		"footer.socialMedia": "Soziale Medien",
+		"footer.contactUs": "Kontaktiere uns",
+		"footer.address": "Hier sind wir zu finden",
+		ingredients: "Inhaltsstoffe",
+		learnMore: "Mehr erfahren",
+	},
 } as const;
