@@ -66,22 +66,25 @@ const { flavor } = Astro.props;
 
             p {
                 font-size: 0.8rem;
+                text-align: center;
             }
         }
 
         .flavor-back {
             transform: rotateY(180deg);
+            justify-content: center;
+            gap: 0;
 
             h2 {
                 color: var(--color);
                 font-size: 0.8rem;
-                margin-bottom: 0.2rem;
+                margin-bottom: var(--space-sm);
             }
 
             p {
                 font-size: 0.7rem;
                 color: var(--on-surface);
-                padding-inline: 1.5rem;
+                padding-inline: 0.5rem;
             }
         }
 
@@ -94,6 +97,7 @@ const { flavor } = Astro.props;
                 font-size: 1rem;
                 margin-bottom: 0.2rem;
                 color: var(--color);
+                padding-inline: 1rem;
             }
 
             img {
