@@ -1,7 +1,8 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import { getLocalizedStaticPaths } from "../../../i18n/utils";
+import { getLocalizedStaticPaths, translateField } from "../../../i18n/utils";
+import { getEntry } from "astro:content";
 
 export async function getStaticPaths() {
     const news = await getCollection("news");
@@ -15,9 +16,12 @@ export async function getStaticPaths() {
 }
 
 const { news } = Astro.props;
-const { Content } = await render(news);
+
+const contentRef = translateField(news.data.content, Astro.url);
+const newsContent = await getEntry(contentRef);
+const { Content } = await render(newsContent);
 ---
 
-<BaseLayout pageTitle={news.data.title}>
+<BaseLayout pageTitle={newsContent.data.title}>
     <Content />
 </BaseLayout>

@@ -2,7 +2,8 @@
 import { type CollectionEntry } from "astro:content";
 import { getExcerpt } from "../helper/html";
 import Link from "./Link.astro";
-import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { getLangFromUrl, translateField, useTranslations } from "../i18n/utils";
+import { getEntry } from "astro:content";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -11,6 +12,9 @@ type Props = {
     news: CollectionEntry<"news">;
 };
 const { news } = Astro.props;
+
+const contentRef = translateField(news.data.content, Astro.url);
+const newsContent = await getEntry(contentRef);
 ---
 
 <style>
@@ -38,8 +42,8 @@ const { news } = Astro.props;
 </style>
 
 <article class="news">
-    <h3>{news.data.title}</h3>
-    {news.rendered && getExcerpt(news.rendered.html)}
+    <h3>{newsContent.data.title}</h3>
+    {newsContent.rendered && getExcerpt(newsContent.rendered.html)}
 
     <Link class="button" href={`/news/${news.id}`}>{t("learnMore")}</Link>
 </article>

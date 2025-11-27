@@ -4,7 +4,7 @@ import {
 	localized,
 } from "astro-loader-i18n";
 import { file, glob } from "astro/loaders";
-import { defineCollection, z } from "astro:content";
+import { defineCollection, reference, z } from "astro:content";
 import { locales } from "./i18n/ui";
 
 const pages = defineCollection({
@@ -47,13 +47,20 @@ const flavors = defineCollection({
 		}),
 });
 
-const news = defineCollection({
+const newsContents = defineCollection({
 	loader: glob({ pattern: "**/*.md", base: "src/content/collections/news" }),
 	schema: z.object({
 		title: z.string(),
-		author: z.string(),
-		pubDate: z.date(),
 	}),
 });
 
-export const collections = { flavors, news, pages, sections };
+const news = defineCollection({
+	loader: file("src/content/collections/news/news.json"),
+	schema: z.object({
+		pubDate: z.string().transform((s) => new Date(s)),
+		author: z.string(),
+		content: localized(reference("newsContents"), locales, true),
+	}),
+});
+
+export const collections = { flavors, news, newsContents, pages, sections };
