@@ -38,6 +38,8 @@ const news = (
 
 const { page, flavorsSection, newsSection } = Astro.props;
 
+const { Content } = await render(page!);
+
 const { Content: FlavorsContent } = await render(flavorsSection!);
 const { Content: NewsContent } = await render(newsSection!);
 ---
@@ -55,6 +57,7 @@ const { Content: NewsContent } = await render(newsSection!);
 </style>
 
 <BaseLayout pageTitle={page?.data.title!}>
+	<Content />
 	{
 		newFlavors.length && (
 			<section slot="sections">
