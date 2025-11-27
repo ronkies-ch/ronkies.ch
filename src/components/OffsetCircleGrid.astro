@@ -3,7 +3,7 @@
 ---
 
 <style define:vars={{ m: "1rem" }}>
-    section {
+    div {
         --amount: 5;
 
         display: flex;
@@ -23,7 +23,7 @@
     }
 
     @media (width > 1800px) {
-        section {
+        div {
             --amount: 6;
 
             > div {
@@ -35,7 +35,7 @@
     }
 
     @media (1600px <= width <= 1800px) {
-        section {
+        div {
             --amount: 5;
 
             > div {
@@ -47,7 +47,7 @@
     }
 
     @media (1200px <= width <= 1600px) {
-        section {
+        div {
             --amount: 4;
 
             > div {
@@ -59,7 +59,7 @@
     }
 
     @media (800px <= width <= 1200px) {
-        section {
+        div {
             --amount: 3;
 
             div {
@@ -71,13 +71,13 @@
     }
 
     @media (width < 800px) {
-        section {
+        div {
             --amount: 2;
             gap: var(--m);
         }
     }
 </style>
 
-<section>
+<div>
     <slot />
-</section>
+</div>

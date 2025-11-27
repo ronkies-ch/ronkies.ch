@@ -20,12 +20,18 @@ const { page, flavors } = Astro.props;
 const { Content } = await render(page!);
 ---
 
-<style></style>
+<style>
+	.flavors {
+		margin-block: var(--space-md);
+	}
+</style>
 
 <BaseLayout pageTitle="Sortiment">
 	<Content />
 
-	<OffsetCircleGrid>
-		{flavors?.map(({ data }) => <Flavor flavor={data} />)}
-	</OffsetCircleGrid>
+	<div class="flavors">
+		<OffsetCircleGrid>
+			{flavors?.map(({ data }) => <Flavor flavor={data} />)}
+		</OffsetCircleGrid>
+	</div>
 </BaseLayout>

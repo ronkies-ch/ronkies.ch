@@ -8,6 +8,9 @@ import Navigation from "./Navigation.astro";
 
 <style>
     header {
+        position: fixed;
+        z-index: 10;
+        width: 100%;
         --corner-height: 10rem;
 
         margin-bottom: calc(var(--corner-height) / 2);
@@ -30,14 +33,17 @@ import Navigation from "./Navigation.astro";
                 width: auto;
             }
 
+            .left {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex: 1;
+                height: 2rem;
+            }
+
             .navigation {
                 display: flex;
                 align-items: center;
-                > *:not(:last-child) {
-                    margin-right: var(--space-md);
-                    padding-right: var(--space-md);
-                    border-right: var(--on-surface) 1px solid;
-                }
             }
         }
 
@@ -51,7 +57,12 @@ import Navigation from "./Navigation.astro";
             --corner-height: 5rem;
 
             .content {
+                padding-inline: var(--space-lg);
                 border-bottom-right-radius: 0;
+
+                img {
+                    height: 2rem;
+                }
             }
         }
 
@@ -67,12 +78,14 @@ import Navigation from "./Navigation.astro";
 
 <header>
     <div class="content">
-        <Link href="">
-            <img src={logo.src} alt="Ronkies Logo" />
-        </Link>
+        <div class="left">
+            <Link href="">
+                <img src={logo.src} alt="Ronkies Logo" />
+            </Link>
+            <LanguagePicker />
+        </div>
         <div class="navigation">
             <Navigation />
-            <LanguagePicker />
         </div>
     </div>
 
