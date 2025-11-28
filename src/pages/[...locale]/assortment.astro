@@ -10,12 +10,12 @@ export const getStaticPaths = async () => {
 		id.endsWith("assortment"),
 	);
 
-	const flavors = await getCollection("flavors");
-
-	return getLocalizedStaticPaths({ page: pages }, { flavors });
+	return getLocalizedStaticPaths({ page: pages });
 };
 
-const { page, flavors } = Astro.props;
+const flavors = await getCollection("flavors");
+
+const { page } = Astro.props;
 
 const { Content } = await render(page!);
 ---
