@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { getLocalizedStaticPaths } from "../../i18n/utils";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection, render } from "astro:content";
@@ -60,7 +61,10 @@ const { Content } = await render(page!);
             return (
                 <section slot="sections">
                     <figure>
-                        <img src={section!.data.image!.src} alt="Ronja" />
+                        <Image
+                            src={section!.data.image!}
+                            alt={section.data.heading!}
+                        />
                         <figcaption>
                             <Content />
                         </figcaption>

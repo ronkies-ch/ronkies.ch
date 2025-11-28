@@ -1,9 +1,10 @@
 ---
-import logo from "../../assets/logo.png";
+import Logo from "../../assets/logo.png";
 
 import Link from "../Link.astro";
 import LanguagePicker from "./LanguagePicker.astro";
 import Navigation from "./Navigation.astro";
+import { Image } from "astro:assets";
 ---
 
 <style>
@@ -80,7 +81,7 @@ import Navigation from "./Navigation.astro";
     <div class="content">
         <div class="left">
             <Link href="">
-                <img src={logo.src} alt="Ronkies Logo" />
+                <Image src={Logo} alt="Ronkies Logo" />
             </Link>
             <LanguagePicker />
         </div>

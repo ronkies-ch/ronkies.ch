@@ -1,6 +1,7 @@
 ---
 import type { InferEntrySchema } from "astro:content";
 import { getLangFromUrl, translateField, useTranslations } from "../i18n/utils";
+import { Image } from "astro:assets";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -116,7 +117,7 @@ const { flavor } = Astro.props;
 >
     <div class="flavor-inner">
         <div class="flavor-front">
-            <img src={flavor.icon.src} alt={flavor.alias} />
+            <Image src={flavor.icon} alt={flavor.alias} />
             <div>
                 <h2>{flavor.alias}</h2>
                 <h3>{translateField(flavor.label, Astro.url)}</h3>
