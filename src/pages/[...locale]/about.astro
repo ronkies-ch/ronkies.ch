@@ -56,14 +56,14 @@ const { Content } = await render(page!);
 
     {
         sections?.map(async (section) => {
-            const { Content } = await render(section!);
+            const { Content, headings } = await render(section!);
 
             return (
                 <section slot="sections">
                     <figure>
                         <Image
                             src={section!.data.image!}
-                            alt={section.data.heading!}
+                            alt={headings[0].text}
                         />
                         <figcaption>
                             <Content />
