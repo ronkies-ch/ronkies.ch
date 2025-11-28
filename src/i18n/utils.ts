@@ -44,20 +44,30 @@ type Entries<T> = {
 	[K in keyof T]: [K, T[K]];
 }[keyof T][];
 
+type FilterNonEmpty<T> = {
+	[K in keyof T as keyof T[K] extends never ? never : K]: T[K];
+};
+
+type FilterEntriesByData = FilterNonEmpty<{
+	[K in keyof AnyEntryMap]: {
+		[ID in keyof AnyEntryMap[K] as AnyEntryMap[K][ID]["data"] extends {
+			locale: string;
+		}
+			? ID
+			: never]: AnyEntryMap[K][ID];
+	};
+}>;
+
 export function getLocalizedStaticPaths<
-	E extends Record<string, CollectionEntry<keyof AnyEntryMap>[]>,
-	C extends Record<string, CollectionEntry<keyof AnyEntryMap>[]>,
+	E extends Record<string, CollectionEntry<keyof FilterEntriesByData>[]>,
+	C extends Record<string, CollectionEntry<keyof FilterEntriesByData>[]>,
 >(entries: E, collections?: C) {
 	return ["", ...locales].map((locale = defaultLocale) => {
 		const entryMap = (Object.entries(entries) as Entries<E>).reduce(
 			(acc, [key, collection]) => {
 				acc[key] =
-					collection.find(
-						(p) => !("locale" in p.data) || p.data.locale === locale,
-					) ??
-					collection.find(
-						(e) => !("locale" in e.data) || e.data.locale === defaultLocale,
-					);
+					collection.find((p) => p.data.locale === locale) ??
+					collection.find((e) => e.data.locale === defaultLocale);
 				return acc;
 			},
 			{} as { [K in keyof E]: E[K][number] | undefined },
@@ -67,11 +77,17 @@ export function getLocalizedStaticPaths<
 			Object.entries(collections ?? []) as Entries<C>
 		).reduce(
 			(acc, [key, collection]) => {
-				acc[key] = collection.filter(
-					(p) =>
-						!("locale" in p.data) ||
-						p.data.locale === locale ||
-						p.data.locale === defaultLocale,
+				const fallback = collection.filter(
+					({ data }) => data.locale === defaultLocale,
+				);
+
+				acc[key] = fallback.map(
+					(e) =>
+						collection.find(
+							({ data }) =>
+								e.data.translationId === data.translationId &&
+								data.locale === locale,
+						) ?? e,
 				);
 				return acc;
 			},
