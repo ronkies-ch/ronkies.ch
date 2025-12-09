@@ -38,7 +38,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: true
+          fetch-depth: 0
           token: ${{ secrets.CONTENT_ACCESS_TOKEN }}
+      - name: Update submodules to latest remote
+        run: |
+          git submodule foreach 'git fetch origin && git checkout $(git rev-parse --abbrev-ref HEAD) && git pull origin $(git rev-parse --abbrev-ref HEAD)'
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
