@@ -3,13 +3,14 @@ import { getCollection, render } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { getLocalizedStaticPaths, translateField } from "../../../i18n/utils";
 import { getEntry } from "astro:content";
+import { locales } from "../../../i18n/ui";
 
 export async function getStaticPaths() {
     const news = await getCollection("news");
 
-    return getLocalizedStaticPaths({}, { news }).flatMap((p) =>
-        p.props.news?.map((n) => ({
-            params: { ...p.params, id: n.id },
+    return ["", ...locales].flatMap((locale) =>
+        news?.map((n) => ({
+            params: { id: n.id, locale },
             props: { news: n },
         })),
     );
