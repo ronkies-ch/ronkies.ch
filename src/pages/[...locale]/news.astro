@@ -7,14 +7,14 @@ import { getLocalizedStaticPaths } from "../../i18n/utils";
 export const getStaticPaths = async () => {
     const pages = await getCollection("pages", ({ id }) => id.endsWith("news"));
 
-    const news = (
-        await getCollection("news", ({ data }) => data.pubDate <= new Date())
-    ).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-
-    return getLocalizedStaticPaths({ page: pages }, { news });
+    return getLocalizedStaticPaths({ page: pages });
 };
 
-const { page, news } = Astro.props;
+const { page } = Astro.props;
+
+const news = (
+    await getCollection("news", ({ data }) => data.pubDate <= new Date())
+).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const { Content } = await render(page!);
 ---
