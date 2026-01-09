@@ -42,7 +42,7 @@ const path = currentPath === "" ? "" : `/${currentPath}`;
 <div
     x-data={`{
         redirect(value) {
-            window.location.href = "${import.meta.env.BASE_URL}" + (value === '${defaultLocale}' ? "${path}" : "/" + value + "${path}");
+            window.location.href = value === '${defaultLocale}' ? "${path || "/"}" : "/" + value + "${path}";
         }
     }`}
 >

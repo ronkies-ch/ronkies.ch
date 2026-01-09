@@ -1,14 +1,14 @@
 import type { AnyEntryMap, CollectionEntry } from "astro:content";
-import { ui, defaultLocale, languages, locales } from "./ui";
+import { ui, defaultLocale, type languages, locales } from "./ui";
 
 export function getLangFromUrl(url: URL) {
-	const [, _basePath, lang] = url.pathname.split("/"); // TOOD: remove _basePath once real domain is registered
+	const [, lang] = url.pathname.split("/"); 
 	if (lang in ui) return lang as keyof typeof ui;
 	return defaultLocale;
 }
 
 export function getPathWithoutLang(url: URL) {
-	const [, _basePath, lang, ...rest] = url.pathname.split("/"); // TOOD: remove _basePath once real domain is registered
+	const [, lang, ...rest] = url.pathname.split("/");
 
 	if ((locales as string[]).includes(lang)) {
 		return rest.join("/");
