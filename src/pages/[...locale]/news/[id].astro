@@ -1,7 +1,11 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import { getLocalizedStaticPaths, translateField } from "../../../i18n/utils";
+import {
+    getLangFromUrl,
+    translateField,
+    useTranslations,
+} from "../../../i18n/utils";
 import { getEntry } from "astro:content";
 import { locales } from "../../../i18n/ui";
 
@@ -21,8 +25,14 @@ const { news } = Astro.props;
 const contentRef = translateField(news.data.content, Astro.url);
 const newsContent = await getEntry(contentRef);
 const { Content } = await render(newsContent);
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <BaseLayout pageTitle={newsContent.data.title}>
-    <Content />
+    <p>{t("news.pubDate")} {news.data.pubDate.toLocaleDateString()}</p>
+    <section>
+        <Content />
+    </section>
 </BaseLayout>

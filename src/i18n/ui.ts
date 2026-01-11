@@ -19,6 +19,7 @@ export const ui = {
 		"footer.address": "Da findet mer üs",
 		ingredients: "Inhaltsstoff",
 		learnMore: "Meh erfahre",
+		"news.pubDate": "Veröffentlicht am: ",
 	},
 	"de-DE": {
 		"footer.socialMedia": "Soziale Medien",
@@ -26,5 +27,6 @@ export const ui = {
 		"footer.address": "Hier sind wir zu finden",
 		ingredients: "Inhaltsstoffe",
 		learnMore: "Mehr erfahren",
+		"news.pubDate": "Veröffentlicht am: ",
 	},
 } as const;
