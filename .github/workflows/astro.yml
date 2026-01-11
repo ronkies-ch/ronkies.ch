@@ -10,7 +10,7 @@ on:
     branches: ["main"]
   repository_dispatch:
 
-  scheduled:
+  schedule:
     - cron: "0 0 * * *"
 
   # Allows you to run this workflow manually from the Actions tab
