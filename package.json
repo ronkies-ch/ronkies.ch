@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@astrojs/alpinejs": "^0.4.9",
+    "@astrojs/sitemap": "^3.6.1",
     "@iconify-json/tabler": "^1.2.23",
     "@tabler/icons": "^3.35.0",
     "@types/alpinejs": "^3.13.11",
